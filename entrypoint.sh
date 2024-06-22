@@ -12,6 +12,9 @@ host_bucket = ${HOST}/%(bucket)
 secret_key = ${SECRET_KEY}
 EOF
 
+# Verify Set-up Authentication
+s3cmd -d -v la --stats s3://${BUCKET}
+
 test_file=/tmp/testfile.txt
 dd if=/dev/urandom of=${test_file} bs=1024 count=${FILE_SIZE_KB:-8192}
 
