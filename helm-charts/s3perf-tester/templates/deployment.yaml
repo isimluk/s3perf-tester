@@ -5,9 +5,7 @@ metadata:
   labels:
     {{- include "s3perf-tester.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "s3perf-tester.selectorLabels" . | nindent 6 }}
