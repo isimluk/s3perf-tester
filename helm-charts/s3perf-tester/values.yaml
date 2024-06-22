@@ -4,6 +4,15 @@
 
 replicaCount: 1
 
+conf:
+  file_size_kb: '8192' # 8KiB
+  s3:
+    bucket: ''
+    host: ''
+    access_key: ''
+    secret_key: ''
+
+
 image:
   repository: quay.io/slukasik/s3perf-tester
   pullPolicy: Always
