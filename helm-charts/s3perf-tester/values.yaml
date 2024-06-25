@@ -11,7 +11,7 @@ conf:
     host: ''
     access_key: ''
     secret_key: ''
-
+    region: us-east-1
 
 image:
   repository: quay.io/slukasik/s3perf-tester

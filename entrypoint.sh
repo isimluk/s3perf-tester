@@ -10,6 +10,7 @@ access_key = ${ACCESS_KEY}
 host_base = ${HOST}
 host_bucket = ${HOST}/%(bucket)
 secret_key = ${SECRET_KEY}
+bucket_location = ${REGION:-us-east-1}
 EOF
 
 # Verify Set-up Authentication
