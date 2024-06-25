@@ -7,11 +7,15 @@ nonse=$(LC_ALL=C tr -dc 'a-zA-Z0-9' </dev/urandom | head -c 13; echo)
 cat <<EOF > "${HOME}/.s3cfg"
 [default]
 access_key = ${ACCESS_KEY}
-host_base = ${HOST}
-host_bucket = ${HOST}/%(bucket)
 secret_key = ${SECRET_KEY}
-bucket_location = ${REGION:-us-east-1}
 EOF
+
+if [ -n "${HOST}" ]; then
+    echo "host_base = ${HOST}" >> "${HOME}/.s3cfg"
+    echo "host_bucket = ${HOST}/%(bucket)" >> "${HOME}/.s3cfg"
+else
+    echo "bucket_location = ${REGION:-us-east-1}" >> ${HOME}/.s3cfg
+fi
 
 # Verify Set-up Authentication
 s3cmd -d -v la --stats s3://${BUCKET}
