@@ -13,6 +13,9 @@ EOF
 if [ -n "${HOST}" ]; then
     echo "host_base = ${HOST}" >> "${HOME}/.s3cfg"
     echo "host_bucket = ${HOST}/%(bucket)" >> "${HOME}/.s3cfg"
+    if [ "${SKIP_SSL_CHECK}" == insecure ]; then
+        echo "check_ssl_certificate = False" >> "${HOME}/.s3cfg"
+    fi
 else
     echo "bucket_location = ${REGION:-us-east-1}" >> ${HOME}/.s3cfg
 fi

@@ -10,5 +10,6 @@ podman run -it \
     -e HOST \
     -e BUCKET \
     -e FILE_SIZE_KB \
+    -e SKIP_SSL_CHECK \
     ${PODMAN_EXTRA_ARGS} \
     --rm s3perf-tester
