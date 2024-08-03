@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
+processCount: 1
 
 conf:
   file_size_kb: '8192' # 8KiB
