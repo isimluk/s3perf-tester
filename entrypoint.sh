@@ -34,7 +34,7 @@ test() {
     done
 }
 
-for i in $(seq "${PROCESSES:-1}"); do
+for _i in $(seq "${PROCESSES:-1}"); do
      test &
 done
 
