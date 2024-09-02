@@ -31,7 +31,12 @@ test_runner() {
         remote_filename=$(LC_ALL=C tr -dc 'a-zA-Z0-9' </dev/urandom | head -c 4; echo)
         remote_url="s3://${BUCKET}/deletable-perf-test/${nonse}/${remote_filename}"
         s3cmd put --stats ${test_file} "${remote_url}"
-        s3cmd info "${remote_url}"
+
+        tmp_file=$(mktemp)
+        s3cmd get --stats "${remote_url}" "${tmp_file}"
+        diff ${test_file} "${tmp_file}"
+        rm "${tmp_file}"
+
         s3cmd rm --stats --force "${remote_url}"
     done
 }
