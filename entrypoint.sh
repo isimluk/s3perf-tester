@@ -23,19 +23,21 @@ fi
 # Verify Set-up Authentication
 s3cmd -d -v la --stats s3://${BUCKET}
 
-test_file=/tmp/testfile.txt
-dd if=/dev/urandom of=${test_file} bs=1024 count=${FILE_SIZE_KB:-8192}
+orig_file=/tmp/testfile.txt
+dd if=/dev/urandom of=${orig_file} bs=1024 count=${FILE_SIZE_KB:-8192}
 
 test_runner() {
+    tmp_file=$(mktemp)
+
     while true; do
+        rm "${tmp_file}"
+
         remote_filename=$(LC_ALL=C tr -dc 'a-zA-Z0-9' </dev/urandom | head -c 4; echo)
         remote_url="s3://${BUCKET}/deletable-perf-test/${nonse}/${remote_filename}"
-        s3cmd put --stats ${test_file} "${remote_url}"
+        s3cmd put --stats ${orig_file} "${remote_url}"
 
-        tmp_file=$(mktemp)
         s3cmd get --stats "${remote_url}" "${tmp_file}"
-        diff ${test_file} "${tmp_file}"
-        rm "${tmp_file}"
+        diff ${orig_file} "${tmp_file}"
 
         s3cmd rm --stats --force "${remote_url}"
     done
