@@ -29,8 +29,9 @@ dd if=/dev/urandom of=${test_file} bs=1024 count=${FILE_SIZE_KB:-8192}
 test_runner() {
     while true; do
         remote_filename=$(LC_ALL=C tr -dc 'a-zA-Z0-9' </dev/urandom | head -c 4; echo)
-        s3cmd put --stats ${test_file} s3://${BUCKET}/deletable-perf-test/${nonse}/${remote_filename}
-        s3cmd rm --stats --force s3://${BUCKET}/deletable-perf-test/${nonse}/${remote_filename}
+        remote_url="s3://${BUCKET}/deletable-perf-test/${nonse}/${remote_filename}"
+        s3cmd put --stats ${test_file} "${remote_url}"
+        s3cmd rm --stats --force "${remote_url}"
     done
 }
 
