@@ -40,8 +40,6 @@ test_runner() {
         cmp ${orig_file} "${tmp_file}"
 
         s3cmd rm --stats --force "${remote_url}"
-        rm "${tmp_file}"
-        s3cmd get --stats "${remote_url}" "${tmp_file}"
     done
 }
 
